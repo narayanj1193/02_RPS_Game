@@ -3,6 +3,8 @@ def user_choice(question):
     # valid inputs:
     valid_list = ["rock", "paper", "scissors", "xxx"]
 
+    # error code
+    error = "Please choose from Rock, Paper, or Scissors. You can use 'xxx' to quit."
     while True:
         # Ask the user if they have played before
         print("")
@@ -13,7 +15,8 @@ def user_choice(question):
             if response == item[0] or response == item:
                 return item
 
-        # output error if item not in list, checks the
+        # output error if item not in list, checks item if it is in valid_list, then continues to this.
+        print(error)
 
 
 # Main routine
@@ -28,4 +31,3 @@ while player_move != "xxx":
         break
     else:
         print(f"You chose: {player_move}")
-
