@@ -14,19 +14,19 @@ def num_check(question):
 
                 # if the amount is too low
                 if response > 0:
-                    continue
+                    return response
 
                 else:
                     print(error)
             except ValueError:
                 print(error)
-        
+
         return response
 
 
 # Main routine
 rounds_played = 0
-instruction = "Please choose rock (r), paper (p), or scissors (s): "
+instruction = "Please choose rock (r), paper (p), or scissors (s) "
 
 # ask user for # of rounds, <enter> for continuous mode
 rounds = num_check("How many rounds would you like to play? <enter> for continuous mode: ")
@@ -36,24 +36,20 @@ while end_game == "no":
 
     # Rounds Heading
     print()
-
     if rounds == "":
-        heading = f"Continuous Mode: Round {rounds_played}"
-        print(heading)
-        choose = input(f"{instruction} or 'xxx' to end:")
-        if choose == "xxx":
-            break
+        heading = f"Continuous Mode: Round {rounds_played+1}"
 
     else:
-        heading = f"Round {rounds_played} of {rounds}"
-        print(heading)
-        choose = input(f"{instruction}")
-        if rounds_played == rounds - 1:
-            end_game = "yes"
+        heading = f"Round {rounds_played+1} of {rounds}"
 
-    # rest of loop
+    print(heading)
+    choose = input(f"{instruction} or 'xxx' to end: ")
+
+    if choose == "xxx":
+        break
+
+    # Rest of loop
     print(f"You chose {choose}")
-
     rounds_played += 1
 
 print("Thanks for playing!")

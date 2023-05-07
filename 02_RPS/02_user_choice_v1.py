@@ -10,13 +10,13 @@ def user_choice(question):
         response = input(question).lower()
 
         # If they say yes, output 'program continues'
-        if response.lower() in paper:
+        if response in paper:
             return response
 
-        elif response.lower() in rock:
+        elif response in rock:
             return response
 
-        elif response.lower() in scissors:
+        elif response in scissors:
             return response
 
         elif response == "xxx":

@@ -2,6 +2,7 @@ def user_choice(question):
 
     # valid inputs:
     valid_list = ["rock", "paper", "scissors", "xxx"]
+    error = "That is not a valid input, please enter either rock (r), paper (p), or scissors (s). "
 
     while True:
         # Ask the user if they have played before
@@ -14,6 +15,8 @@ def user_choice(question):
                 return item
 
         # output error if item not in list, checks the
+        else:
+            print(error)
 
 
 # Main routine
