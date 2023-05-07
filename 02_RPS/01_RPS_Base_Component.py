@@ -59,12 +59,17 @@ rps_list = ["rock", "paper", "scissors", "xxx"]
 
 # Main routine
 rounds_played = 0
+rounds_won = 0
+rounds_lost = 0
+rounds_drawn = 0
+
 instruction = "Please choose rock (r), paper (p), or scissors (s) "
 
 # ask user for # of rounds, <enter> for continuous mode
 rounds = num_check("How many rounds would you like to play? <enter> for continuous mode: ")
 
 while True:
+    rounds_played += 1
 
     # Checks if the requested number of rounds has been met, if so break the code.
     if rounds is not None and rounds_played == rounds:
@@ -73,15 +78,18 @@ while True:
     # Rounds Heading
     print()
     if rounds is None:
-        heading = f"Continuous Mode: Round {rounds_played + 1}"
+        heading = f"Continuous Mode: Round {rounds_played}"
 
     else:
-        heading = f"Round {rounds_played + 1} of {rounds}"
-
+        heading = f"Round {rounds_played} of {rounds}"
     print(heading)
 
     # Ask user for their choice of move (rock, paper, or scissors + xxx)
     user_move = user_choice(f"{instruction} or 'xxx' to end: ")
+
+    # exit code
+    if user_move == "xxx":
+        break
 
     # get computer choice
     comp_move = get_computer_move()
@@ -92,21 +100,31 @@ while True:
 
     # compare moves
     if user_move == comp_move:
-        result = "Tie"
+        result = "tie"
+        feedback = "It's a tie"
+
     elif winning_combinations[user_move] == comp_move:
-        result = "User wins!"
+        result = "won!"
+        rounds_won += 1
 
     else:
-        result = "COM wins."
+        result = "lost."
+        rounds_lost += 1
+
+    if result == "tie":
+        feedback = "It's a tie"
+    else:
+        feedback = f"{user_move} vs {comp_move} - you {result}"
+
+    # rounds drawn
+    rounds_drawn = rounds_played - rounds_won - rounds_lost
 
     # output player move
-    print(f"\nUser Move: {user_move}\nComputer Move: {comp_move}."
-          f"\n\nResult: {result}")
-    rounds_played += 1
+    print(f"\nYou chose: {user_move}.\nCOM chose: {comp_move}\n", feedback)
 
-    # exit code
-    if user_move == "xxx":
-        break
-
-
-print("\nThanks for playing!")
+# End of game statement
+print()
+print("***** End Game Statistics *****")
+print(f"Won: {rounds_won} \t|\t Lost: {rounds_lost} \t|\t Draw: {rounds_drawn}")
+print()
+print("Thanks for playing!")
