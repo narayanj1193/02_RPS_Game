@@ -63,6 +63,8 @@ rounds_won = 0
 rounds_lost = 0
 rounds_drawn = 0
 
+game_summary = []
+
 instruction = "Please choose rock (r), paper (p), or scissors (s) "
 
 # ask user for # of rounds, <enter> for continuous mode
@@ -72,7 +74,7 @@ while True:
     rounds_played += 1
 
     # Checks if the requested number of rounds has been met, if so break the code.
-    if rounds is not None and rounds_played == rounds:
+    if rounds is not None and rounds_played == rounds + 1:
         break
 
     # Rounds Heading
@@ -101,30 +103,48 @@ while True:
     # compare moves
     if user_move == comp_move:
         result = "tie"
-        feedback = "It's a tie"
+        feedback = "drew"
 
     elif winning_combinations[user_move] == comp_move:
-        result = "won!"
+        result = "won"
         rounds_won += 1
 
     else:
-        result = "lost."
+        result = "lost"
         rounds_lost += 1
 
-    if result == "tie":
-        feedback = "It's a tie"
-    else:
-        feedback = f"{user_move} vs {comp_move} - you {result}"
+    feedback = f"{user_move} vs {comp_move} - you {result}"
 
     # rounds drawn
     rounds_drawn = rounds_played - rounds_won - rounds_lost
 
     # output player move
-    print(f"\nYou chose: {user_move}.\nCOM chose: {comp_move}\n", feedback)
+    print(f"\nYou chose: {user_move}.\nCOM chose: {comp_move}. \n{feedback}")
 
-# End of game statement
+    # outcome variable for game summary
+    outcome = f"Round {rounds_played}: {result}"
+    game_summary.append(outcome)
+
+# Calculate amount of draws
+rounds_drawn = rounds_played - rounds_lost - rounds_won - 1
+
+# Calculate Game Stats
+percent_win = rounds_won / rounds_played * 100
+percent_lose = rounds_lost / rounds_played * 100
+percent_tie = rounds_drawn / rounds_played * 100
+
 print()
-print("***** End Game Statistics *****")
-print(f"Won: {rounds_won} \t|\t Lost: {rounds_lost} \t|\t Draw: {rounds_drawn}")
+print("**** Game History ****")
+for game in game_summary:
+    print(game)
+
 print()
-print("Thanks for playing!")
+
+# displays game stats with % values to the
+print("***** Game Statistics *****")
+print("Wins: {} ({:.0f}%) \nLosses: {} ({:.0f}%) \nTie: {} ({:.0f}%)".format(rounds_won, percent_win, rounds_lost,
+                                                                             percent_lose, rounds_drawn,
+                                                                             percent_tie))
+print()
+print("Thanks for Playing!")
+print()
